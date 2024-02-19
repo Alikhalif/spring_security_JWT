@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -21,6 +22,8 @@ public class Reviews {
     @Column
     private String title;
     @Column
+    @Temporal(TemporalType.DATE)
+    private LocalDate date;
     private String message;
     @Column(columnDefinition = "integer default 1")
     private Integer reactions;

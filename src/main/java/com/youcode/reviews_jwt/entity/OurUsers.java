@@ -32,20 +32,13 @@ public class OurUsers implements UserDetails {
     private String username;
     private String password;
     @Enumerated(EnumType.STRING)
-    private Set<Role> roles;
-
+    private Role role;
 
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.stream()
-                .map(role -> new SimpleGrantedAuthority(role.name()))
-                .collect(Collectors.toList());
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+        return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
     @Override

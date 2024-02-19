@@ -1,5 +1,8 @@
 package com.youcode.reviews_jwt.controller;
 
+import com.youcode.reviews_jwt.dto.JwtAuthenticationResponse;
+import com.youcode.reviews_jwt.dto.ReqRes;
+import com.youcode.reviews_jwt.dto.SignInRequest;
 import com.youcode.reviews_jwt.dto.SignUpRequest;
 import com.youcode.reviews_jwt.entity.OurUsers;
 import com.youcode.reviews_jwt.service.AuthenticationService;
@@ -20,8 +23,13 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
     @PostMapping("/signup")
-    public ResponseEntity<OurUsers> signUp(@RequestBody SignUpRequest signUpRequest){
+    public ResponseEntity<SignUpRequest> signUp(@RequestBody SignUpRequest signUpRequest){
         return ResponseEntity.ok(authenticationService.signup(signUpRequest));
+    }
+
+    @PostMapping("/signin")
+    public ResponseEntity<JwtAuthenticationResponse> signIn(@RequestBody SignInRequest signInRequest){
+        return ResponseEntity.ok(authenticationService.signIn(signInRequest));
     }
 
 }

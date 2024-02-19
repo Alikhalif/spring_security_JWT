@@ -63,10 +63,7 @@ public class ReviewServiceImpl implements ReviewService {
     @PreAuthorize("hasAnyRole(Role.MODERATOR, Role.ADMIN)")
     @Override
     public List<ReviewDTO> calimedReviews() {
-        List<Reviews> claimes  = new ArrayList<>();
-        for(Reviews r:reviewRepository.findAll())
-            if(r.getClaimedUser() != null || r.getClaimedUser().size() > 0)
-                claimes.add(r);
-        return Arrays.asList(modelMapper.map(claimes, ReviewDTO[].class));
+
+        return Arrays.asList();
     }
 }

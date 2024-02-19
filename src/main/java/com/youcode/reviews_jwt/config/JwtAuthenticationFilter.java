@@ -2,6 +2,7 @@ package com.youcode.reviews_jwt.config;
 
 import com.youcode.reviews_jwt.service.JWTservice;
 import com.youcode.reviews_jwt.service.UserService;
+import com.youcode.reviews_jwt.service.impl.JWTServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,7 +24,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final JWTservice jwtService;
+    private final JWTServiceImpl jwtService;
     private final UserService userService;
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -36,7 +37,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
         jwt = authHeader.substring(7);
-        userName = jwtService.extractUserName(jwt);
+        userName = jwtService.extractUsername(jwt);
 
         if(StringUtils.isNotEmpty(userName) && SecurityContextHolder.getContext().getAuthentication() == null){
             UserDetails userDetails = userService.userDetailsService().loadUserByUsername(userName);

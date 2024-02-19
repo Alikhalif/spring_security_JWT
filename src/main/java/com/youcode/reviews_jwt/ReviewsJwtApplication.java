@@ -22,9 +22,8 @@ public class ReviewsJwtApplication implements CommandLineRunner {
 	}
 
 	public void run(String... args) throws Exception {
-		Set<Role> adminRoles = Collections.singleton(Role.ADMIN);
-		Optional<OurUsers> adminAccount = userRepository.findByRolesIn(adminRoles);
-		if (adminAccount == null){
+		Optional<OurUsers> adminAccount = userRepository.findByRole(Role.ADMIN);
+		if (adminAccount.isEmpty()){
 			System.out.println(adminAccount);
 			//Set<Role> roles = new HashSet<Role>();
 			//roles.add(Role.BASE_USER);
@@ -33,8 +32,8 @@ public class ReviewsJwtApplication implements CommandLineRunner {
 			user.setFirstname("ali");
 			user.setLastname("khalif");
 			user.setUsername("parker");
-			Set<Role> userRoles = Collections.singleton(Role.ADMIN);
-			user.setRoles(userRoles);
+			//Set<Role> userRoles = Collections.singleton(Role.ADMIN);
+			user.setRole(Role.ADMIN);
 			user.setPassword(new BCryptPasswordEncoder().encode("password"));
 			userRepository.save(user);
 		}
